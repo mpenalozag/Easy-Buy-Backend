@@ -1,0 +1,21 @@
+version: '1'
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    container_name: api
+    volumes:
+      - ./api:/app/api
+    ports:
+      - 3000:3000
+
+  scrapper:
+    build:
+      context: ./scrapper
+      dockerfile: ./Dockerfile
+    container_name: scrapper
+    volumes:
+      - ./scrapper:/app/scrapper
+    ports:
+      - 5000:5000
