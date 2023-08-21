@@ -7,6 +7,9 @@ export async function startBrowser() {
   const browser = await puppeteer.launch({
     headless: true,
     defaultViewport: null,
+    args: [
+      "--no-sandbox"
+    ],
   });
   const page = await browser.newPage();
   await page.goto("https://www.jumbo.cl/", {
