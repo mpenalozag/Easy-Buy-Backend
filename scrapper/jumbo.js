@@ -5,17 +5,17 @@ let code2 = "7802910083509";
 export async function startBrowser() {
   console.log("Iniciando browser...")
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: "new",
     defaultViewport: null,
     args: [
-      "--no-sandbox"
+      '--no-sandbox',
     ],
   });
   const page = await browser.newPage();
   await page.goto("https://www.jumbo.cl/", {
-    waitUntil: 'domcontentloaded',
+    waitUntil: 'domcontentloaded'
   });
-  return {browser, page};
+  return { browser, page };
 }
 
 export async function stopBrowser(browser) {
@@ -28,11 +28,11 @@ async function searchProduct(productCode, page) {
   await page.type(".new-header-search-input", productCode);
   await page.click(".new-header-search-submit");
   await page.waitForSelector(".new-header-search-input");
-  await page.click(".new-header-search-input", {clickCount: 3});
+  await page.click(".new-header-search-input", { clickCount: 3 });
   await page.keyboard.press("Backspace");
 }
 
-async function extractProductInfo(page) { 
+async function extractProductInfo(page) {
   await page.waitForSelector(".product-info");
   const data = await page.evaluate(() => {
     const productInfo = document.querySelector(".product-info");
