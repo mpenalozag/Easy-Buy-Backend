@@ -4,4 +4,4 @@ COPY package.json ./
 RUN npm install
 COPY . .
 EXPOSE 3000
-ENTRYPOINT [ "bash", "./start.sh"]
+ENTRYPOINT ["node", "app.js"]
