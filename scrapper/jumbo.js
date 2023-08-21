@@ -38,11 +38,14 @@ async function extractProductInfo(page) {
     const productInfo = document.querySelector(".product-info");
     const productName = productInfo.querySelector(".product-name").innerText;
     const productPrice = productInfo.querySelector(".prices-main-price").innerText;
+    const productImage = productInfo.querySelector(".zoomed-image").getAttribute("style").split(" ")[5].split("\"")[1];
     return {
       productName,
-      productPrice
+      productPrice,
+      productImage
     };
   });
+  console.log("La data del producto es: ", data);
   return data;
 }
 
