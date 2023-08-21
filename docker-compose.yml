@@ -6,7 +6,7 @@ services:
       dockerfile: ./Dockerfile
     container_name: api
     volumes:
-      - ./api:/app/api
+      - ./api:/app
     ports:
       - 3000:3000
 
@@ -16,6 +16,6 @@ services:
       dockerfile: ./Dockerfile
     container_name: scrapper
     volumes:
-      - ./scrapper:/app/scrapper
+      - ./scrapper:/app
     ports:
       - 5000:5000
