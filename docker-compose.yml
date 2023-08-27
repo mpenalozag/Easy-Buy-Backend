@@ -1,5 +1,13 @@
 version: '1'
 services:
+  db:
+    image: postgres
+    restart: always
+    container_name: easyCartDB
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
   api:
     build:
       context: ./api
@@ -9,6 +17,12 @@ services:
       - ./api:/app
     ports:
       - 3000:3000
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      API_PORT: ${API_PORT}
+      API_HOST: ${API_HOST}
 
   scrapper:
     build:
