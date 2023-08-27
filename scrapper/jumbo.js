@@ -79,7 +79,7 @@ async function extractProductInfo(page) {
     await page.waitForSelector(".error-404-subtitle");
     resolve("ProductNotFound");
   });
-  const productPromise = new Promise( async (resolve, reject) => {
+  const productPromise = new Promise(async (resolve, reject) => {
     await page.waitForSelector(".product-info");
     resolve("ProductFound");
   });
@@ -92,18 +92,20 @@ async function extractProductInfo(page) {
       productImage: null
     };
   }
-  const data = await page.evaluate(() => {
-    const productInfo = document.querySelector(".product-info");
-    const productName = productInfo.querySelector(".product-name").innerText;
-    const productPrice = productInfo.querySelector(".prices-main-price").innerText;
-    const productImage = productInfo.querySelector(".zoomed-image").getAttribute("style").split(" ")[5].split("\"")[1];
-    return {
-      productName,
-      productPrice,
-      productImage
-    };
-  });
-  return data;
+  else {
+    const data = await page.evaluate(() => {
+      const productInfo = document.querySelector(".product-info");
+      const productName = productInfo.querySelector(".product-name").innerText;
+      const productPrice = productInfo.querySelector(".prices-main-price").innerText;
+      const productImage = productInfo.querySelector(".zoomed-image").getAttribute("style").split(" ")[5].split("\"")[1];
+      return {
+        productName,
+        productPrice,
+        productImage
+      };
+    });
+    return data;
+  }
 }
 
 export async function getProductFromJumbo(productCode, browser, page) {
