@@ -75,7 +75,23 @@ async function searchProduct(productCode, page) {
 }
 
 async function extractProductInfo(page) {
-  await page.waitForSelector(".product-info");
+  const errorPromise = new Promise(async (resolve, reject) => {
+    await page.waitForSelector(".error-404-subtitle");
+    resolve("ProductNotFound");
+  });
+  const productPromise = new Promise( async (resolve, reject) => {
+    await page.waitForSelector(".product-info");
+    resolve("ProductFound");
+  });
+  const promises = [errorPromise, productPromise];
+  const result = await Promise.any(promises);
+  if (result === "ProductNotFound") {
+    return {
+      productName: "Producto no encontrado",
+      productPrice: null,
+      productImage: null
+    };
+  }
   const data = await page.evaluate(() => {
     const productInfo = document.querySelector(".product-info");
     const productName = productInfo.querySelector(".product-name").innerText;
@@ -87,7 +103,6 @@ async function extractProductInfo(page) {
       productImage
     };
   });
-  console.log("La data del producto es: ", data);
   return data;
 }
 

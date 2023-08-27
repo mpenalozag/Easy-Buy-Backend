@@ -13,8 +13,12 @@ app.get('/', (req, res) => {
 
 app.get('/product/:productCode', async (req, res) => {
   const productCode = req.params.productCode;
-  const productInfo = await getProductFromJumbo(productCode, browser, page);
-  res.json(productInfo);
+  try {
+    const productInfo = await getProductFromJumbo(productCode, browser, page);
+    res.json(productInfo);
+  } catch (error) {
+    console.log(error);
+  }
 })
 
 app.listen(port, () => {
