@@ -1,4 +1,4 @@
-const { User }= require("../../models");
+const { User }= require("../../db/models");
 
 module.exports = async function checkDuplicateEmail(req, res, next) {
   const user = await User.findOne({
