@@ -7,6 +7,6 @@ router.post('/register', authMiddlewares.checkDuplicates);
 router.post('/register', authControllers.register);
 
 
-router.post('/login', );
+router.post('/login', authControllers.login);
 
 module.exports = router;
