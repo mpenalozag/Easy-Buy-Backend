@@ -76,11 +76,19 @@ async function searchProduct(productCode, page) {
 
 async function extractProductInfo(page) {
   const errorPromise = new Promise(async (resolve, reject) => {
-    await page.waitForSelector(".error-404-subtitle");
+    try {
+      await page.waitForSelector(".error-404-subtitle");
+    } catch (err) {
+      //
+    }
     resolve("ProductNotFound");
   });
   const productPromise = new Promise(async (resolve, reject) => {
-    await page.waitForSelector(".product-info");
+    try {
+      await page.waitForSelector(".product-info");
+    } catch (err) {
+      //
+    }
     resolve("ProductFound");
   });
   const promises = [errorPromise, productPromise];
