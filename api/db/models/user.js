@@ -10,7 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      User.hasOne(models.Cart, {
+        foreignKey: {
+          name: 'user_id',
+          allowNull: false
+        }
+      })
     }
   }
   User.init({

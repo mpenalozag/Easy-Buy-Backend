@@ -10,7 +10,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       cart_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Carts',
+          key: 'id'
+        }
       },
       name: {
         type: Sequelize.STRING
